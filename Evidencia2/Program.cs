@@ -46,8 +46,3 @@ var maria = new[]
         t => Math.Exp(t / 10) / 10
     }
 };
-
-var textAnibal = Utils.ToString(Utils.LinearFit(data[0][0], data[0][1], anibal[0]));
-Console.WriteLine(textAnibal);
-var textMaria = Utils.ToString(Utils.LinearFit(data[1][0], data[1][1], maria[0]));
-Console.WriteLine(textMaria);
