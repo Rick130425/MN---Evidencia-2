@@ -1,0 +1,14 @@
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\bin\Debug\net7.0\Evidencia2.exe
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\bin\Debug\net7.0\Evidencia2.deps.json
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\bin\Debug\net7.0\Evidencia2.runtimeconfig.json
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\bin\Debug\net7.0\Evidencia2.dll
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\bin\Debug\net7.0\Evidencia2.pdb
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\Evidencia2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\Evidencia2.AssemblyInfoInputs.cache
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\Evidencia2.AssemblyInfo.cs
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\Evidencia2.csproj.CoreCompileInputs.cache
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\Evidencia2.dll
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\refint\Evidencia2.dll
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\Evidencia2.pdb
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\Evidencia2.genruntimeconfig.cache
+C:\Users\ricar\OneDrive\Escritorio\Tecmilenio ATC\3er Semestre\Métodos numéricos\Evidencia 2\Evidencia2\Evidencia2\obj\Debug\net7.0\ref\Evidencia2.dll
