@@ -54,6 +54,143 @@ public static class Utils
     }
     
     /// <summary>
+    /// Resuelve un sistema de ecuaciones no lineales.
+    /// </summary>
+    /// <param name="equations">Ecuaciones.</param>
+    /// <param name="jacobian">Matriz jacobiana de las ecuaciones.</param>
+    /// <param name="x">Valor inicial de x.</param>
+    /// <param name="y">Valor inicial de y.</param>
+    /// <param name="standard">Criterio de aceptación (presición)</param>
+    /// <returns>Arreglo con los valores de la intersección.</returns>
+    public static double[] SolveNonlinearSystem(
+        Func<double, double, double>[] equations, 
+        Func<double, double, double>[,] jacobian, 
+        double x, double y, double standard)
+    {
+        var augMatrix = new double[2, 3];
+        do
+        {
+            // Se calculan los valores de la jacobiana y se guardan
+            for (var i = 0; i < 2; i++)
+            {
+                for (var j = 0; j < 2; j++)
+                {
+                    augMatrix[i, j] = jacobian[i, j](x, y);
+                }
+            }
+            
+            // Se calculan los valores de las ecuaciones
+            for (var i = 0; i < 2; i++)
+            {
+                augMatrix[i, 2] = equations[i](x, y);
+            }
+            
+            // Se realiza una eliminación gaussiana
+            augMatrix = GaussianElimination(augMatrix);
+            
+            // Se restan los valores correspondientes a x y y
+            x -= augMatrix[0, 2];
+            y -= augMatrix[1, 2];
+            // Mientras no se cumpla el criterio, se repite el proceso anterior
+        } while (Math.Abs(equations[0](x, y)) > standard || Math.Abs(equations[1](x, y)) > standard);
+
+        return new[] { x, y };
+    }
+
+    public static double NewtonRaphson(Func<double, double> func, Func<double, double> deriv, double x, double standard)
+    {
+        do
+        {
+            x -= func(x) / deriv(x); 
+            // Mientras no se cumpla el criterio, se repite el proceso anterior
+        } while (Math.Abs(func(x)) > standard);
+
+        return x;
+    }
+
+    public static double Secant(Func<double, double> func, double x, double stepSize, double standard)
+    {
+        double prevX, prevY, midX, midY, y = func(x);
+        // Se busca el rango donde está la raíz
+        do
+        {
+            prevX = x;
+            prevY = y;
+            x += stepSize;
+            y = func(x);
+        } while (prevY * y > 0);
+
+        do
+        {
+            // Se calcula el valor medio (punto donde la recta entre los dos puntos es 0)
+            midX = x - (prevX - x) * y / (prevY - y);
+            midY = func(midX);
+            
+            // Si es mayor
+            if (midY > 0)
+            {
+                // Se mueve el límite superior
+                x = midX;
+                y = midY;
+            }
+            // Si no
+            else
+            {
+                // Se mueve el límite inferior
+                prevX = midX;
+                prevY = midY;
+            } 
+            // Mientras no se cumpla el criterio, se repite el proceso anterior
+        } while (midY > standard);
+
+        return midX;
+    }
+    
+    /// <summary>
+    /// Realiza una eliminación gaussiana a la matriz introducida.
+    /// </summary>
+    /// <param name="augmentedMatrix">Matriz extendida.</param>
+    /// <returns>Matriz resultante de la eliminación gaussiana.</returns>
+    public static double[,] GaussianElimination(double[,] augmentedMatrix)
+    {
+        // Arreglo de dimensiones
+        var size = new[] { augmentedMatrix.GetLength(0), augmentedMatrix.GetLength(1) };
+        for (var pivotIndex = 0; pivotIndex < size[0]; pivotIndex++)
+        {
+            // Guardado del pivote
+            var pivot = augmentedMatrix[pivotIndex, pivotIndex];
+            for (var row = 0; row < size[0]; row++)
+            {
+                // Fila temporal (iniciando desde la fila del pivote)
+                var tempRow = (pivotIndex + row) % size[0];
+                // Si la fila es 0
+                if (row == 0)
+                {
+                    for (var column = 0; column < size[1]; column++)
+                    {
+                        // División de la fila del pivote por el pivote
+                        augmentedMatrix[tempRow, column] /= pivot;
+                    }
+                }
+                // Si no
+                else
+                {
+                    // Guardado del factor (valor de la columna del pivote en la fila)
+                    var factor = augmentedMatrix[tempRow, pivotIndex];
+                    for (var column = 0; column < size[1]; column++)
+                    {
+                        // Resta de los valores de la fila del pivote, multiplicados por el factor, a la fila actuál
+                        augmentedMatrix[tempRow, column] -= augmentedMatrix[pivotIndex, column] * factor;
+                    }
+                }
+            }
+        }
+
+        // Retorno de la matriz extendida resultante
+        return augmentedMatrix;
+    }
+    
+    /// <summary>
     /// Realiza el producto punto de dos matrices.
     /// </summary>
     /// <param name="matrixOne">Matriz uno.</param>
@@ -155,50 +292,6 @@ public static class Utils
     }
 
     /// <summary>
-    /// Realiza una eliminación gaussiana a la matriz introducida.
-    /// </summary>
-    /// <param name="augmentedMatrix">Matriz extendida.</param>
-    /// <returns>Matriz resultante de la eliminación gaussiana.</returns>
-    public static double[,] GaussianElimination(double[,] augmentedMatrix)
-    {
-        // Arreglo de dimensiones
-        var size = new[] { augmentedMatrix.GetLength(0), augmentedMatrix.GetLength(1) };
-        for (var pivotIndex = 0; pivotIndex < size[0]; pivotIndex++)
-        {
-            // Guardado del pivote
-            var pivot = augmentedMatrix[pivotIndex, pivotIndex];
-            for (var row = 0; row < size[0]; row++)
-            {
-                // Fila temporal (iniciando desde la fila del pivote)
-                var tempRow = (pivotIndex + row) % size[0];
-                // Si la fila es 0
-                if (row == 0)
-                {
-                    for (var column = 0; column < size[1]; column++)
-                    {
-                        // División de la fila del pivote por el pivote
-                        augmentedMatrix[tempRow, column] /= pivot;
-                    }
-                }
-                // Si no
-                else
-                {
-                    // Guardado del factor (valor de la columna del pivote en la fila)
-                    var factor = augmentedMatrix[tempRow, pivotIndex];
-                    for (var column = 0; column < size[1]; column++)
-                    {
-                        // Resta de los valores de la fila del pivote, multiplicados por el factor, a la fila actuál
-                        augmentedMatrix[tempRow, column] -= augmentedMatrix[pivotIndex, column] * factor;
-                    }
-                }
-            }
-        }
-
-        // Retorno de la matriz extendida resultante
-        return augmentedMatrix;
-    }
-
-    /// <summary>
     /// Regresa la representación en texto de un arreglo.
     /// </summary>
     /// <param name="array">Arreglo.</param>
@@ -218,4 +311,5 @@ public static class Utils
         // Se regresa el texto
         return text.ToString();
     }
+
 }
