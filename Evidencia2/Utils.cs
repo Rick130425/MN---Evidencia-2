@@ -60,7 +60,7 @@ public static class Utils
     /// <param name="jacobian">Matriz jacobiana de las ecuaciones.</param>
     /// <param name="x">Valor inicial de x.</param>
     /// <param name="y">Valor inicial de y.</param>
-    /// <param name="standard">Criterio de aceptación (presición)</param>
+    /// <param name="standard">Criterio de aceptación (precisión).</param>
     /// <returns>Arreglo con los valores de la intersección.</returns>
     public static double[] SolveNonlinearSystem(
         Func<double, double, double>[] equations, 
@@ -96,8 +96,17 @@ public static class Utils
 
         return new[] { x, y };
     }
-
-    public static double NewtonRaphson(Func<double, double> func, Func<double, double> deriv, double x, double standard)
+    
+    /// <summary>
+    /// Aproxima la raíz de una función mediante el método de Newton-Raphson
+    /// </summary>
+    /// <param name="func">Función.</param>
+    /// <param name="deriv">Derivada de la función.</param>
+    /// <param name="x">Valor inicial de x.</param>
+    /// <param name="standard">Criterio de aceptación (precisión).</param>
+    /// <returns></returns>
+    public static double NewtonRaphson(Func<double, double> func, Func<double, double> deriv, double x, 
+        double standard)
     {
         do
         {
@@ -107,7 +116,15 @@ public static class Utils
 
         return x;
     }
-
+    
+    /// <summary>
+    /// Aproxima la raíz de una función mediante el método de la Secante.
+    /// </summary>
+    /// <param name="func">Función.</param>
+    /// <param name="x">Valor inicial de x.</param>
+    /// <param name="stepSize">Tamaño de cambio.</param>
+    /// <param name="standard">Criterio de aceptación (precisión).</param>
+    /// <returns></returns>
     public static double Secant(Func<double, double> func, double x, double stepSize, double standard)
     {
         double prevX, prevY, midX, midY, y = func(x);
