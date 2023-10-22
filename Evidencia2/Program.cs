@@ -126,8 +126,8 @@ var newton = new[]
     Utils.NewtonRaphson(t => funcs[1](t) - 60, derivs[1], 1, standard)
 };
 
-// Método de Bisección
-var bisection = new[]
+// Método de Secante
+var secant = new[]
 {
     // Aproximación de t para Aníbal == 60 
     Utils.Secant(t => funcs[0](t) - 60, 1, 1, standard),
@@ -153,7 +153,7 @@ Console.Write($"""
               La estatura de Aníbal será de 60 centímetros a los {newton[0]:F4} meses.
               La estatura de María será de 60 centímetros a los {newton[1]:F4} meses.
               
-              (Bisección)
-              La estatura de Aníbal será de 60 centímetros a los {bisection[0]:F4} meses.
-              La estatura de María será de 60 centímetros a los {bisection[1]:F4} meses.
+              (Secante)
+              La estatura de Aníbal será de 60 centímetros a los {secant[0]:F4} meses.
+              La estatura de María será de 60 centímetros a los {secant[1]:F4} meses.
               """);

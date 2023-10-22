@@ -20,7 +20,7 @@ public static class Utils
     public static double[] LinearFit(double[] input, double[] output, Func<double, double>[] funcs)
     {
         var jacobian = new double[input.Length, funcs.Length];
-        var size = new int[] { jacobian.GetLength(0), jacobian.GetLength(1) };
+        var size = new[] { jacobian.GetLength(0), jacobian.GetLength(1) };
 
         // Se llena la matriz jacobiana
         // Las filas indican el valor de entrada que se utiliza, mientras la columna indica la función que se utiliza.
@@ -40,12 +40,13 @@ public static class Utils
         
         // Se copian los valores del producto punto de la matriz jacobiana transpuesta con la matriz transpuesta de 
         // los valores de salida a la matriz aumentada, colocándolos en la última columna de la matriz
-        augMatrix = CopyTo(DotProduct(tJacobian, Transpose(ToMatrix(output))), augMatrix, startColumn: size[1]);
+        augMatrix = CopyTo(DotProduct(tJacobian, Transpose(ToMatrix(output))), augMatrix, 
+            startColumn: size[1]);
         
         augMatrix = GaussianElimination(augMatrix);
         // La cantidad de coeficientes es igual a la cantidad de funciones
         var coefficients = new double[size[1]];
-        for (int i = 0; i < size[1]; i++)
+        for (var i = 0; i < size[1]; i++)
         {
             coefficients[i] = augMatrix[i, size[1]];
         }
@@ -297,8 +298,8 @@ public static class Utils
     /// <returns>Matriz del arreglo.</returns>
     public static double[,] ToMatrix(double[] array)
     {
-        int size = array.Length;
-        double[,] result = new double[1, size];
+        var size = array.Length;
+        var result = new double[1, size];
 
         for (int i = 0; i < size; i++)
         {
@@ -328,5 +329,4 @@ public static class Utils
         // Se regresa el texto
         return text.ToString();
     }
-
 }
